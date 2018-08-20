@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { AngularFire, AuthProviders, AuthMethods,FirebaseListObservable } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { auth } from 'firebase';
+import 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,32 +9,40 @@ import { AngularFire, AuthProviders, AuthMethods,FirebaseListObservable } from '
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  items: FirebaseListObservable<any>;
+  // items: FirebaseListObservable<any>;
   name: any;
-  mensagem: string = '';
+  // mensagem: string = '';
 
-  constructor(public angfire: AngularFire) {
-    this.items = angfire.list('/messages', {
-      query: {
-        limitToLast: 5
-      }
-    });
+  constructor(public angFireAuth: AngularFireAuth) {
 
-    this.angfire.auth.subscribe(auth => {
-      if(auth) {
-        this.name = auth;
+    angFireAuth.authState.subscribe(auth => {
+      if (auth) {
+        this.name = auth.displayName
+        console.log(auth.displayName)
       }
     })
   }
 
   login() {
-    this.angfire.auth.login({
-      provider: AuthProviders.Facebook,
-      method: AuthMethods.Popup
+
+    var self = this
+    this.angFireAuth.auth.signInWithPopup(new auth.FacebookAuthProvider()).then(function (obj) {
+      console.log("logou")
+    }).catch(function () {
+      console.log("Catch")
     })
+    console.log(this.angFireAuth)
+    // this.angfire.auth.login({
+    //   provider: AuthProviders.Facebook,
+    //   method: AuthMethods.Popup
+    // })
   }
 
-  chatSend(theirMessage: string) {
-    this.items.push({ message: theirMessage, name: this.name.facebook.displayName })
+  logout() {
+    this.angFireAuth.auth.signOut()
   }
+
+  // chatSend(theirMessage: string) {
+  //   this.items.push({ message: theirMessage, name: this.name.facebook.displayName })
+  // }
 }
