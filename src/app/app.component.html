@@ -1,12 +1,15 @@
 <div class="row columns">
-  <button (click)="login()" *ngIf="!name">Login With Facebook</button>
-  <button (click)="logout()" *ngIf="!name">Log out</button>
+  <button (click)="login()" *ngIf="!name" class="btn-logar">Login With Facebook</button>
+  <!-- <button (click)="logout()" *ngIf="!name">Log out</button> -->
 
-  <input type="text" id="message" *ngIf="name" placeholder="Chat here..." (keyup.enter)="chatSend($event.target.value)" [(ngModel)]="msgVal" />
+  <div class="enviar-msg">
+    <input type="text" id="message" *ngIf="name" placeholder="Digite sua mensagem..." (keyup.enter)="chatSend($event.target.value)"
+      [(ngModel)]="msgVal" />
+    <button id="enviar" (click)="chatSend(msgVal)">ENVIAR</button>
+  </div>
+  <div class="chat-container" *ngFor="let item of items | async | reverse">
+    <a href="#">{{item.name}}</a>
 
-    <div class="chat-container" *ngFor="let item of items | async">
-      <a href="#">{{item.name}}</a>
-      
-      <p>{{item.message}}</p>
-    </div>
+    <p>{{item.message}}</p>
+  </div>
 </div>

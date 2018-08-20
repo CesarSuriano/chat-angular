@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { auth } from 'firebase';
 import 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +11,17 @@ import 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  // items: FirebaseListObservable<any>;
+  items: Observable<any[]>;
+  mensagens: AngularFireList<any>;
   name: any;
+  msgVal: string
   // mensagem: string = '';
 
-  constructor(public angFireAuth: AngularFireAuth) {
+  constructor(public angFireAuth: AngularFireAuth, public database: AngularFireDatabase) {
+
+    this.items = database.list('/messages', ref => ref.limitToLast(10)).valueChanges()
+
+    this.mensagens = database.list('/messages')
 
     angFireAuth.authState.subscribe(auth => {
       if (auth) {
@@ -21,6 +29,8 @@ export class AppComponent {
         console.log(auth.displayName)
       }
     })
+
+
   }
 
   login() {
@@ -42,7 +52,14 @@ export class AppComponent {
     this.angFireAuth.auth.signOut()
   }
 
-  // chatSend(theirMessage: string) {
-  //   this.items.push({ message: theirMessage, name: this.name.facebook.displayName })
-  // }
+  chatSend(theirMessage: string) {
+    if (theirMessage.trim()) {
+      console.log(theirMessage)
+      this.mensagens.push({ message: theirMessage, name: this.name });
+      this.msgVal = '';
+    }
+
+    // console.log(this.items.valueChanges())
+
+  }
 }

@@ -1,41 +1,82 @@
 input#message {
-    background:none;
-    border:none;
+    width: 75%;
+    background: none;
+    border: none;
     border-bottom: 1px solid #4C4C4C;
-    outline:none;
-    box-shadow:none;
+    outline: none;
+    box-shadow: none;
     color: white;
-    font-size:1.6em;
-    font-weight:300;
+    font-size: 1.6em;
+    font-weight: 300;
     margin-bottom: 3em;
-    padding:1.2em 0;
+    padding: 1.2em 0;
+    display: inline-block;
 }
 
 .chat-container {
-    display:block;
-    width:100%;
+    display: block;
+    width: 100%;
 }
-.chat-container:nth-child(4) {
+
+.chat-container:nth-child(9) {
     opacity: .8;
 }
-.chat-container:nth-child(3) {
+
+.chat-container:nth-child(10) {
     opacity: .6;
 }
-.chat-container:nth-child(2) {
+
+.chat-container:nth-child(11) {
     opacity: .4;
 }
 
 .chat-container a {
     text-transform: uppercase;
-    font-weight:bold;
-    color:#816A98;
-    font-size:.8em;
-    letter-spacing:2px;
+    font-weight: bold;
+    color: #816A98;
+    font-size: .8em;
+    letter-spacing: 2px;
 }
 
 .chat-container p {
-    background:#323035;
-    padding:1.1em;
-    color:white;
+    background: #323035;
+    padding: 1.1em;
+    color: white;
     margin: 5px 0 10px 0;
+}
+
+.enviar-msg {
+    width: 100%;
+}
+
+btn-logar {
+    background: #4267B2;
+    color: white;
+    padding: 1.2em;
+    width: 300px;
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+#enviar {
+    display: none;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: portrait) {
+    #enviar {
+        float: right;
+        display: inline-block;
+        padding: 0;
+        margin-top: 17px;
+        color: white;
+        padding: 10px;
+        font-size: 0.7em;
+        background-color: #58B176;
+    }
+
+    input#message {
+        font-size: 1.3em;
+    }
 }
