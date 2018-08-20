@@ -1,9 +1,9 @@
 <div class="row columns">
-  <button (click)="login()" *ngIf="!name" class="btn-logar">Login With Facebook</button>
+  <button (click)="login()" *ngIf="!name" class="btn-logar">Logar com Facebook</button>
   <!-- <button (click)="logout()" *ngIf="!name">Log out</button> -->
 
-  <div class="enviar-msg">
-    <input type="text" id="message" *ngIf="name" placeholder="Digite sua mensagem..." (keyup.enter)="chatSend($event.target.value)"
+  <div class="enviar-msg"  *ngIf="name">
+    <input type="text" id="message" placeholder="Digite sua mensagem..." (keyup.enter)="chatSend($event.target.value)"
       [(ngModel)]="msgVal" />
     <button id="enviar" (click)="chatSend(msgVal)">ENVIAR</button>
   </div>

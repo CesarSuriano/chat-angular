@@ -49,7 +49,7 @@ input#message {
     width: 100%;
 }
 
-btn-logar {
+.btn-logar {
     background: #4267B2;
     color: white;
     padding: 1.2em;
