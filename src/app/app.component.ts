@@ -26,7 +26,7 @@ export class AppComponent {
     angFireAuth.authState.subscribe(auth => {
       if (auth) {
         this.name = auth.displayName
-        console.log(auth.displayName)
+        console.log("nome: " + this.name)
       }
     })
 
